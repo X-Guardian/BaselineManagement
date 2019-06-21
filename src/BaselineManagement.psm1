@@ -181,7 +181,7 @@ function ConvertFrom-GPO
         Clear-ProcessingHistory
 
         # Create the Configuration String
-        $ConfigString = Write-DSCString -Configuration -Name "DSCFromGPO"
+        $ConfigString = Write-DSCString -Configuration -Name $ConfigName
         # Add any resources
         $AddedResources = $false
         $ConfigString += Write-DSCString -ModuleImport -ModuleName $NeededModules
@@ -746,7 +746,7 @@ function ConvertFrom-GPO
         }
         else
         {
-            Get-Item $(Join-Path -Path $OutputPath -ChildPath "DSCFromGPO.ps1.error")
+            Get-Item $(Join-Path -Path $OutputPath -ChildPath "$ConfigName.ps1.error")
         }
     }
 }
@@ -819,7 +819,7 @@ Function ConvertFrom-SCM
     Clear-ProcessingHistory
 
     # Create the Configuration String
-    $ConfigString = Write-DSCString -Configuration -Name DSCFromSCM -Comment $BaselineComment
+    $ConfigString = Write-DSCString -Configuration -Name $ConfigName -Comment $BaselineComment
     # Add any resources
     $ConfigString += Write-DSCString -ModuleImport -ModuleName PSDesiredStateConfiguration, AuditPolicyDSC, SecurityPolicyDSC
     # Add Node Data
@@ -907,7 +907,7 @@ Function ConvertFrom-SCM
             mkdir $OutputPath
         }
 
-        $Scriptpath = Join-Path $OutputPath "DSCFromSCM.ps1"
+        $Scriptpath = Join-Path $OutputPath "$ConfigName.ps1"
         $ConfigString | Out-File -FilePath $Scriptpath -Force -Encoding Utf8
     }
 
@@ -1046,7 +1046,7 @@ function ConvertFrom-ASC
         Clear-ProcessingHistory
 
         # Create the Configuration String
-        $ConfigString = Write-DSCString -Configuration -Name DSCFromASC
+        $ConfigString = Write-DSCString -Configuration -Name $ConfigName
         # Add any resources
         $ConfigString += Write-DSCString -ModuleImport -ModuleName PSDesiredStateConfiguration, AuditPolicyDSC, SecurityPolicyDSC
         # Add Node Data
@@ -1155,7 +1155,7 @@ function ConvertFrom-ASC
         }
         else
         {
-            Get-Item $(Join-Path -Path $OutputPath -ChildPath "DSCFromASC.ps1.error")
+            Get-Item $(Join-Path -Path $OutputPath -ChildPath "$ConfigName.ps1.error")
         }
     }
 }
